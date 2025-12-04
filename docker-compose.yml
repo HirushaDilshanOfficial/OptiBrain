@@ -28,6 +28,14 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8000
 
+  ml:
+    build: ./ml
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
+    volumes:
+      - ./ml:/app
+    ports:
+      - "8001:8001"
+
   db:
     image: postgres:13-alpine
     volumes:

@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     # Kafka
     KAFKA_BOOTSTRAP_SERVERS: str = "kafka:9092"
 
+    # ML Service
+    ML_SERVICE_URL: str = "http://ml:8001"
+
     class Config:
         case_sensitive = True
 
