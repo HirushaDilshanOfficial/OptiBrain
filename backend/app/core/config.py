@@ -11,6 +11,17 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = "password"
     POSTGRES_DB: str = "optibrain"
     
+    # Security
+    SECRET_KEY: str = "YOUR_SECRET_KEY_HERE" # Change this in production!
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8 # 8 days
+    
+    # Redis
+    REDIS_HOST: str = "redis"
+    REDIS_PORT: int = 6379
+    
+    # Kafka
+    KAFKA_BOOTSTRAP_SERVERS: str = "kafka:9092"
+
     class Config:
         case_sensitive = True
 
