@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+sqlalchemy
+asyncpg
+pydantic-settings
+alembic
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+redis
+kafka-python
+prophet
+xgboost
+pandas
+numpy
+scikit-learn

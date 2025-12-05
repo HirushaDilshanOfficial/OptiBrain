@@ -1,0 +1,9 @@
+torch
+prophet
+xgboost
+lightgbm
+scikit-learn
+pandas
+numpy
+fastapi
+uvicorn
