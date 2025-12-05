@@ -4,12 +4,14 @@ from typing import List, Dict, Any
 from models.forecasting import DemandForecaster
 from models.pricing import DynamicPricingEngine
 from models.inventory import ReplenishmentOptimizer
+from models.customer import CustomerSegmenter
 
 app = FastAPI(title="OptiBrain ML Service")
 
 forecaster = DemandForecaster()
 pricing_engine = DynamicPricingEngine()
 inventory_optimizer = ReplenishmentOptimizer()
+customer_segmenter = CustomerSegmenter()
 
 class HistoryPoint(BaseModel):
     ds: str
@@ -74,5 +76,23 @@ def optimize_inventory(request: InventoryRequest):
             request.service_level
         )
         return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class CustomerData(BaseModel):
+    customer_id: int
+    recency: float  # Days since last purchase
+    frequency: int  # Number of purchases
+    monetary: float # Total spend
+
+class CustomerSegmentationRequest(BaseModel):
+    customers: List[CustomerData]
+
+@app.post("/segment_customers")
+def segment_customers(request: CustomerSegmentationRequest):
+    try:
+        customer_data = [c.dict() for c in request.customers]
+        result = customer_segmenter.segment_customers(customer_data)
+        return {"segments": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
